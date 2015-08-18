@@ -1,0 +1,25 @@
+#pic_container {
+  height: inherit;
+  border: 1px dotted #000;
+}
+
+#draggable-option-wrapper {
+  background-color: white;
+  width:350px;
+  padding:10px;
+  position:absolute;
+  top:20px;
+  right:20px;
+  z-index:1000;
+  -webkit-box-shadow: 0 0 15px 5px rgba(0,0,0,.25); 
+  box-shadow: 0 0 15px 5px rgba(0,0,0,.25);
+  cursor:pointer;
+}
+
+a.source_accept {
+  background-image: none;
+}
+
+.noshow {
+  display: none;
+}
