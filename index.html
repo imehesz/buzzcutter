@@ -21,6 +21,7 @@
 				<div class="source_url">
           <input type="txt" id="source_url2" value="https://55d805467d2e7789e12bfbd56e0be6f5498a3d1d.googledrive.com/host/0B55OYxnBow_9QjNWRnFQUjdqRjQ/buzzreaderhelp.jpg"></div>
   				<button 
+            id="loadButton"
             onClick="javascript:gui_loadImage(document.getElementById('source_url2').value)" 
             class="srce_accept">
               LOAD
@@ -86,11 +87,42 @@
 <script>
   $(function(){
     $("#draggable-option-wrapper").draggable();
+
+    var QueryString = function () {
+      // This function is anonymous, is executed immediately and 
+      // the return value is assigned to QueryString!
+      var query_string = {};
+      var query = window.location.search.substring(1);
+      var vars = query.split("&");
+      for (var i=0;i<vars.length;i++) {
+        var pair = vars[i].split("=");
+            // If first entry with this name
+        if (typeof query_string[pair[0]] === "undefined") {
+          query_string[pair[0]] = decodeURIComponent(pair[1]);
+            // If second entry with this name
+        } else if (typeof query_string[pair[0]] === "string") {
+          var arr = [ query_string[pair[0]],decodeURIComponent(pair[1]) ];
+          query_string[pair[0]] = arr;
+            // If third or later entry with this name
+        } else {
+          query_string[pair[0]].push(decodeURIComponent(pair[1]));
+        }
+      } 
+        return query_string;
+    }();
+
+    var pu = QueryString.pageUrl;
+
+    if (pu) {
+      pu = pu.substring(0,pu.length-1);
+      $("#source_url2").val(pu);
+      $("#loadButton").trigger("click");
+    }
   });
 </script>
 
 <div style="text-align:center;">
-  Based on but heavily butchered version of <a href="http://www.maschek.hu/imagemap/imgmap">http://www.maschek.hu/imagemap/imgmap</a>.
+  Based on, but heavily butchered, version of <a href="http://www.maschek.hu/imagemap/imgmap">http://www.maschek.hu/imagemap/imgmap</a>.
 </div>
 </body>
 </html>
