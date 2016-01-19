@@ -13,7 +13,7 @@
 </head>
 <body>
   <div id="draggable-option-wrapper" style="">
-    <fieldset>
+    <fieldset id="admin">
         <legend>
           Admin
         </legend>
@@ -74,6 +74,14 @@
 			<textarea id="html_container"></textarea></div>
 		</fieldset>
 
+		<fieldset id="email" style="display:none">
+			<legend>Email</legend>
+      <div>
+        <button>Send Email</button>
+      </div>
+		</fieldset>
+
+
   </div>
 
 
@@ -112,11 +120,24 @@
     }();
 
     var pu = QueryString.pageUrl;
+    var title = QueryString.title;
+    var pageNum = QueryString.pageNum || 1;
 
     if (pu) {
-      pu = pu.substring(0,pu.length-1);
+      $("fieldset#admin").hide();
+      $("fieldset#email").show();
+      pu = pu[pu.length] == "/" ? pu.substring(0,pu.length-1) : pu;
       $("#source_url2").val(pu);
       $("#loadButton").trigger("click");
+
+      // actions
+      $("fieldset#email button").on("click", function(){
+        var $coords = $("#html_container").val();
+        if (title  && $coords) {
+          var e = ["i","m","e", "h", "e", "s", "z", "@", "g", "m", "a", "i", "l", ".", "c", "o", "m"];
+          window.open("mailto:" + e.join("") + "?subject=BuzzCutter: " + escape(title + " - Page: " + pageNum) + "&body=" + escape(pu + "\n\n" + $coords));
+        }
+      });
     }
   });
 </script>
