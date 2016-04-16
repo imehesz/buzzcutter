@@ -14,6 +14,7 @@
   -webkit-box-shadow: 0 0 15px 5px rgba(0,0,0,.25); 
   box-shadow: 0 0 15px 5px rgba(0,0,0,.25);
   cursor:pointer;
+  transition: top 0.1s ease-in-out;
 }
 
 a.source_accept {

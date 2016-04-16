@@ -94,7 +94,25 @@
 
 <script>
   $(function(){
-    $("#draggable-option-wrapper").draggable();
+    $draggie = $("#draggable-option-wrapper");
+    $draggie.draggable();
+
+    var debounce = function(cb, wait) {
+      var time;
+      return function() {
+        clearTimeout(time);
+        time = setTimeout(function() {
+            time = null;
+            cb.call();
+        }, wait);
+      }
+    }
+
+    var scrollHandler = debounce(function(){
+      $draggie.css("top", (window.scrollY + 10));
+    }, 300);
+
+    window.onscroll = scrollHandler;
 
     var QueryString = function () {
       // This function is anonymous, is executed immediately and 
